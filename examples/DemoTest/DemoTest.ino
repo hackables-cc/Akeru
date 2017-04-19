@@ -1,29 +1,29 @@
-/* Akeru.h - DemoTest.ino
+/* DemoTest.ino
 *
-* Copyleft Snootlab 2016
+* Copyleft Hackables 2017
 *
 * This sample code is a demo project for Sigfox Library :
-* - Check if TD1208 is available on setup 
-* - Read TD1208 temperature, 
-*               supply voltage, 
-*               ID, 
+* - Check if TD1208 is available on setup
+* - Read TD1208 temperature,
+*               supply voltage,
+*               ID,
 *               hardware version,
-*               firmware version, 
+*               firmware version,
 *               power level.
 * - Send temperature & supply voltage over the network
 */
 
+#include <Arduino.h>
 #include <Akeru.h>
 
 // TD1208 Sigfox module IO definition
-/*   Snootlab device | TX | RX
-               Akeru | D4 | D5
-               Akene | D5 | D4
-            Breakout | your pick */
+/*   Hackables device | TX | RX
+          SigFox Hack | D4 | D3
+             Breakout | your pick */
 #define TX 4
-#define RX 5
+#define RX 3
 
-// Sigfox instance management 
+// Sigfox instance management
 Akeru akeru(RX, TX);
 
 void setup()
@@ -31,14 +31,14 @@ void setup()
   // initialize serial communication at 9600 bits per second:
   Serial.begin(9600);
   Serial.println("Demo sketch for Akeru library :)");
-  
+
   // Check TD1208 communication
   if (!akeru.begin())
   {
     Serial.println("TD1208 KO");
     while(1);
   }
-  
+
   akeru.echoOn(); // comment this line to hide AT commands
 }
 
@@ -106,7 +106,7 @@ void loop()
     Serial.println("Firmware version KO");
   }
 
-  // Read power 
+  // Read power
   int power = 0;
   if (akeru.getPower(&power))
   {
@@ -122,9 +122,9 @@ void loop()
   // Convert to hexadecimal before sending
   String temp = akeru.toHex(temperature);
   String volt = akeru.toHex(voltage);
-  
+
   String msg = temp + volt; // Put everything together
-  
+
   if (akeru.sendPayload(msg))
   {
     Serial.println("Message sent !");
@@ -137,4 +137,3 @@ void loop()
   // End of tests
   while (1);
 }
-

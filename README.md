@@ -4,22 +4,13 @@ Akeru - TD1208 library for Arduino
 Requirements
 ------------
 
-[Akeru](http://snootlab.com/lang-en/snootlab-shields/829-akeru-beta-33-en.html)
+[Sigfox-Hack](http://www.hackables.cc/en/sigfox/11-sigfox-hack.html)
 
-or
-
-[Arduino/Genuino Uno](http://snootlab.com/lang-en/arduino-genuino-en/956-genuino-uno-arduino-uno-en.html) + [Akene](http://snootlab.com/lang-en/snootlab-shields/889-akene-v1-en.html) or [TD1208 Breakout](http://snootlab.com/lang-en/snootlab-shields/962-breakout-td1208-connectivity-1-year-accessories-en.html)
 
 Examples
 --------
 
-* demoTest : full demo sketch
-  * Checks if the modem is available
-  * reads temperature, supply voltage, hardware & firmware version, power level
-  * sends temperature & supply voltage on Sigfox network
-* downlinkDemo : how to receive data from the Sigfox network
-* sendMultipleValues : sending various values in a single message
-* sendSingleValues  : sending values from a single analog sensor 
+...
 
 Installation
 ------------
@@ -36,12 +27,11 @@ Starting with version 4 of the library, RX/TX definition is directly in the sket
 ```
 #include <Akeru.h>
 
-/*   Snootlab device | TX | RX
-               Akeru | D4 | D5
-               Akene | D5 | D4
+/*  Hackables device | TX | RX
+         Sigfoc Hack | D4 | D3
             Breakout | your pick */
 #define TX 4
-#define RX 5
+#define RX 3
 
 Akeru akeru(RX, TX);
 ```
@@ -76,10 +66,6 @@ String arrayString= akeru.toHex(array, sizeof(array));
 akeru.sendPayload(arrayString);
 ```
 
-Documentation
--------------
 
-Visit [our specific forum](http://forum.snootlab.com/viewforum.php?f=51)
-Read the full documentation [in french](http://forum.snootlab.com/viewtopic.php?f=51&t=1508) or [in english](http://forum.snootlab.com/viewtopic.php?f=51&t=1509)
 
 

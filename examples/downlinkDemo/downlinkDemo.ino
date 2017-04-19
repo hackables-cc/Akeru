@@ -1,36 +1,36 @@
-/* Akeru.h - downlinkDemo.ino
- * 
- * Copyleft Snootlab 2016
- * 
+/* downlinkDemo.ino
+ *
+ * Copyleft Hackables 2017
+ *
  * Downlink activation, and reception of a Sigfox network message
  */
 
+#include <Arduino.h>
 #include <Akeru.h>
 
 // TD1208 Sigfox module IO definition
-/*   Snootlab device | TX | RX
-               Akeru | D4 | D5
-               Akene | D5 | D4
-            Breakout | your pick */
+/*   Hackables device | TX | RX
+          SigFox Hack | D4 | D3
+             Breakout | your pick */
 #define TX 4
-#define RX 5
+#define RX 3
 
-// Sigfox instance management 
+// Sigfox instance management
 Akeru akeru(RX, TX);
 
-void setup() 
+void setup()
 {
   Serial.begin(9600);
-  
+
   // Check TD1208 communication
   if (!akeru.begin())
   {
     Serial.println("TD1208 KO");
     while(1);
   }
-  
+
   //akeru.echoOn(); // uncomment this line to see AT commands
-  
+
   String data = "";
   if (akeru.receive(&data))
   {
@@ -39,6 +39,6 @@ void setup()
   }
 }
 
-void loop() 
+void loop()
 {
 }
